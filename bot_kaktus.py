@@ -34,6 +34,7 @@ def pars_news(message):
             print(f'Фото - {photo}')
             num += 1
             links.append(link)
+            print(links)
 
             bot.send_message(message.chat.id, f'№{num}\nВремя - <i>{data_time}</i>\nОписания - <b>{descriptions}</b>\nФото: {photo}', parse_mode='html')
         msg = bot.send_message(message.chat.id, 'Выбери номер новости (1-20) или нажми Quit для завершения:', reply_markup=keyboard)
@@ -52,7 +53,7 @@ def select_news(message, links):
         try:
             num = int(message.text)
             if num < 1 or num > 20:
-                msg = bot.send_message(message.chat.id, 'Пожалуйста, введи число от 1 до 20 или нажми Quit', reply_markup=keyboard)
+                msg = bot.send_message(message.chat.id, 'Такого номера новости нет, введи число от 1 до 20 или нажми Quit', reply_markup=keyboard)
                 bot.register_next_step_handler(msg, select_news, links)
                 return
         except ValueError:
